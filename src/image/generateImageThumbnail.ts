@@ -1,0 +1,87 @@
+import path from 'path'
+import sharp from 'sharp'
+
+/**
+ * @interface GenerateImageThumbnailOptions
+ * @since 1.0.0
+ */
+export interface GenerateImageThumbnailOptions {
+	width?: number
+	height?: number
+}
+
+/**
+ * @function generateImageThumbnail
+ * @since 1.0.0
+ */
+export async function generateImageThumbnail(src: string, dst: string, options: GenerateImageThumbnailOptions) {
+
+	let dir = path.dirname(src)
+	let ext = path.extname(src)
+	let lbl = path.basename(src, ext)
+
+	let meta = await sharp(src).metadata()
+
+	let w = meta.width
+	let h = meta.height
+
+	if (w == null ||
+		h == null) {
+		return null
+	}
+
+	let {
+		dw,
+		dh
+	} = resize(
+		w, h,
+		options.width,
+		options.height
+	)
+
+	lbl = [lbl, '@', dw, 'x', dh, ext].join('')
+
+	dst = path.join(
+		dst,
+		lbl
+	)
+
+	try {
+
+		await sharp(src).resize(options).toFile(dst)
+
+	} catch (e) {
+		return null
+	}
+
+	return dst
+}
+
+/**
+ * @function resize
+ * @since 1.0.0
+ * @hidden
+ */
+function resize(srcW: number, srcH: number, dstW?: number, dstH?: number) {
+
+	if (dstW != null &&
+		dstH != null) {
+
+		dstW = Math.ceil(dstW)
+		dstH = Math.ceil(dstH)
+
+	} else if (dstW) {
+
+		dstH = Math.ceil(dstW * (srcH / srcW))
+
+	} else if (dstH) {
+
+		dstW = Math.ceil(dstH * (srcW / srcH))
+
+	}
+
+	return {
+		dw: dstW,
+		dh: dstH
+	}
+}
