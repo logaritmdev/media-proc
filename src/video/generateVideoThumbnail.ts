@@ -4,6 +4,7 @@ import { ffprobe } from 'fluent-ffmpeg'
 import { FfmpegCommand as FFMpegCommand } from 'fluent-ffmpeg'
 import { FfprobeData as FFProbeData } from 'fluent-ffmpeg'
 import { ScreenshotsConfig } from 'fluent-ffmpeg'
+import { getVideoMetadata } from './getVideoMetadata'
 
 /**
  * @interface GenerateVideoThumbnailOptions
@@ -25,14 +26,12 @@ export async function generateVideoThumbnail(src: string, dst: string, options: 
 	let lbl = path.basename(src, ext)
 
 	let meta = await getVideoMetadata(src)
+	if (meta == null) {
+		return null
+	}
 
 	let w = meta.width
 	let h = meta.height
-
-	if (w == null ||
-		h == null) {
-		return null
-	}
 
 	let {
 		dw,
@@ -58,32 +57,6 @@ export async function generateVideoThumbnail(src: string, dst: string, options: 
 	})
 
 	return dst
-}
-
-/**
- * @method getVideoMetadata
- * @since 1.0.0
- * @hidden
- */
-async function getVideoMetadata(video: string) {
-
-	let width: number | undefined
-	let height: number | undefined
-	let length: number | undefined
-
-	let meta = await probe(video)
-	if (meta &&
-		meta.streams[0]) {
-		width = meta.streams[0].width
-		height = meta.streams[0].height
-		length = meta.streams[0].length
-	}
-
-	return {
-		width,
-		height,
-		length
-	}
 }
 
 /**
@@ -113,17 +86,6 @@ function resize(srcW: number, srcH: number, dstW?: number, dstH?: number) {
 		dw: dstW,
 		dh: dstH
 	}
-}
-
-/**
- * @function resize
- * @since 1.0.0
- * @hidden
- */
-async function probe(source: string) {
-	return new Promise<FFProbeData>((success, failure) => {
-		ffprobe(source, (err, res) => err ? failure(err) : success(res))
-	})
 }
 
 /**
