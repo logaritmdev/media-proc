@@ -10,4 +10,4 @@ export interface GenerateImageThumbnailOptions {
  * @function generateImageThumbnail
  * @since 1.0.0
  */
-export declare function generateImageThumbnail(src: string, dst: string, options: GenerateImageThumbnailOptions): Promise<(string | (number | undefined)[])[] | null>;
+export declare function generateImageThumbnail(src: string, dst: string, options: GenerateImageThumbnailOptions): Promise<null | [string, number, number]>;

@@ -14,7 +14,7 @@ export interface GenerateImageThumbnailOptions {
  * @function generateImageThumbnail
  * @since 1.0.0
  */
-export async function generateImageThumbnail(src: string, dst: string, options: GenerateImageThumbnailOptions) {
+export async function generateImageThumbnail(src: string, dst: string, options: GenerateImageThumbnailOptions): Promise<null | [string, number, number]> {
 
 	let dir = path.dirname(src)
 	let ext = path.extname(src)
@@ -54,7 +54,7 @@ export async function generateImageThumbnail(src: string, dst: string, options: 
 		return null
 	}
 
-	return [dst, [dw, dh]]
+	return [dst, dw, dh]
 }
 
 /**
@@ -81,7 +81,7 @@ function resize(srcW: number, srcH: number, dstW?: number, dstH?: number) {
 	}
 
 	return {
-		dw: dstW,
-		dh: dstH
+		dw: dstW || 0,
+		dh: dstH || 0
 	}
 }

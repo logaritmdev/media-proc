@@ -19,7 +19,7 @@ export interface GenerateVideoThumbnailOptions {
  * @function generateVideoThumbnail
  * @since 1.0.0
  */
-export async function generateVideoThumbnail(src: string, dst: string, options: GenerateVideoThumbnailOptions) {
+export async function generateVideoThumbnail(src: string, dst: string, options: GenerateVideoThumbnailOptions): Promise<null | [string, number, number]> {
 
 	let dir = path.dirname(src)
 	let ext = path.extname(src)
@@ -56,7 +56,7 @@ export async function generateVideoThumbnail(src: string, dst: string, options: 
 		timemarks: [3]
 	})
 
-	return [dst, [dw, dh]]
+	return [dst, dw, dh]
 }
 
 /**
@@ -83,8 +83,8 @@ function resize(srcW: number, srcH: number, dstW?: number, dstH?: number) {
 	}
 
 	return {
-		dw: dstW,
-		dh: dstH
+		dw: dstW || 0,
+		dh: dstH || 0
 	}
 }
 

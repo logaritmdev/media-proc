@@ -18,7 +18,7 @@ export interface GenerateAudioThumbnailOptions {
  * @function generateAudioThumbnail
  * @since 1.0.0
  */
-export async function generateAudioThumbnail(src: string, dst: string, options: GenerateAudioThumbnailOptions) {
+export async function generateAudioThumbnail(src: string, dst: string, options: GenerateAudioThumbnailOptions): Promise<null | [string, number, number]> {
 
 	let {
 		width,
@@ -63,5 +63,5 @@ export async function generateAudioThumbnail(src: string, dst: string, options: 
 		return null
 	}
 
-	return [dst, [dw, dh]]
+	return [dst, dw, dh]
 }
