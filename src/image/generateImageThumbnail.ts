@@ -54,7 +54,7 @@ export async function generateImageThumbnail(src: string, dst: string, options: 
 		return null
 	}
 
-	return dst
+	return [dst, [dw, dh]]
 }
 
 /**

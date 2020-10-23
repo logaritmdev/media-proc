@@ -10,4 +10,4 @@ export interface GenerateVideoThumbnailOptions {
  * @function generateVideoThumbnail
  * @since 1.0.0
  */
-export declare function generateVideoThumbnail(src: string, dst: string, options: GenerateVideoThumbnailOptions): Promise<string | null>;
+export declare function generateVideoThumbnail(src: string, dst: string, options: GenerateVideoThumbnailOptions): Promise<(string | (number | undefined)[])[] | null>;

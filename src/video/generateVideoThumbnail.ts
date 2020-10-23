@@ -56,7 +56,7 @@ export async function generateVideoThumbnail(src: string, dst: string, options: 
 		timemarks: [3]
 	})
 
-	return dst
+	return [dst, [dw, dh]]
 }
 
 /**

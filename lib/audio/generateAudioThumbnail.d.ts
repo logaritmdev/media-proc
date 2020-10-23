@@ -13,4 +13,4 @@ export interface GenerateAudioThumbnailOptions {
  * @function generateAudioThumbnail
  * @since 1.0.0
  */
-export declare function generateAudioThumbnail(src: string, dst: string, options: GenerateAudioThumbnailOptions): Promise<string | null>;
+export declare function generateAudioThumbnail(src: string, dst: string, options: GenerateAudioThumbnailOptions): Promise<(string | number[])[] | null>;
