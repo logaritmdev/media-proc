@@ -30,16 +30,24 @@ export async function generateImageThumbnail(src: string, dst: string, options: 
 		return null
 	}
 
+	let rw = options.width
+	let rh = options.height
+
+	if (rw) {
+		rw = Math.min(w, rw)
+	} else if (rh) {
+		rh = Math.min(h, rh)
+	}
+
 	let {
 		dw,
 		dh
 	} = resize(
 		w, h,
-		options.width,
-		options.height
+		rw, rh
 	)
 
-	lbl = [lbl, '@', dw, 'x', dh, ext].join('')
+	lbl = [lbl, '@', dw, 'x', dh, '.png'].join('')
 
 	dst = path.join(
 		dst,

@@ -33,13 +33,21 @@ export async function generateVideoThumbnail(src: string, dst: string, options: 
 	let w = meta.width
 	let h = meta.height
 
+	let rw = options.width
+	let rh = options.height
+
+	if (rw) {
+		rw = Math.min(w, rw)
+	} else if (rh) {
+		rh = Math.min(h, rh)
+	}
+
 	let {
 		dw,
 		dh
 	} = resize(
 		w, h,
-		options.width,
-		options.height
+		rw, rh
 	)
 
 	lbl = [lbl, '@', dw, 'x', dh, '.jpg'].join('')
