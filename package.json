@@ -9,7 +9,7 @@
   "license": "TBD",
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
-    "music-metadata": "^8.1.0",
+    "music-metadata": "7.13.0",
     "sharp": "^0.31.1"
   },
   "devDependencies": {
