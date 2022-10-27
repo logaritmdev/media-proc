@@ -1,5 +1,4 @@
 import fs from 'fs'
-import waveform from 'generate-sound-waveform'
 import path from 'path'
 
 /**
@@ -44,6 +43,7 @@ export async function generateAudioThumbnail(src: string, dst: string, options: 
 
 	try {
 
+		/*
 		let stream: any = await waveform.generateSoundImage(src, dw, dh, {
 			stepMultiplier: 10,
 			backgroundColor,
@@ -58,6 +58,7 @@ export async function generateAudioThumbnail(src: string, dst: string, options: 
 			writer.on('error', error)
 			stream.pipe(writer)
 		})
+		*/
 
 	} catch (e) {
 		return null
